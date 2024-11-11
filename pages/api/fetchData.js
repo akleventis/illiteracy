@@ -9,6 +9,7 @@ export default async function handler(req, res) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Cache-Control': 'no-store' 
           },
           body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
@@ -18,7 +19,6 @@ export default async function handler(req, res) {
       const data = await response.json();
       res.status(200).json(data);
     } catch (error) {
-      console.log("async fetch error: ", error)
-      res.status(500).json({ error: "Error fetching dataa" });
-    }
+      res.status(500).json({ error: "Error fetching data: " + error});
+    };
   }

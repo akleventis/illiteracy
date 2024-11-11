@@ -15,7 +15,6 @@ export const makeFriendlyAndPersonable = (prompt) => {
 
 
 export default function Home() {
-  console.log("render")
   const [response, setResponse] = useState(null); 
   const inputRef = useRef("");
 
@@ -36,8 +35,7 @@ export default function Home() {
       const textContent = data.candidates[0].content.parts[0].text;
       setResponse(textContent)
     } catch (error) {
-      console.log(error)
-      setResponse("Error fetching data");
+      setResponse("Error fetching data: " + error);
     }
   };
 
