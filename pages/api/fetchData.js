@@ -3,13 +3,13 @@ export default async function handler(req, res) {
   
     try {
       const prompt = req.body.prompt;
+      const timestamp = new Date().getTime();
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}&_=${timestamp}`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Cache-Control': 'no-store' 
           },
           body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
