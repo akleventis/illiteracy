@@ -28,7 +28,8 @@ export default function Home() {
       return
     }
     try {
-      const res = await fetch("/api/fetchData", {
+      const timestamp = new Date().getTime();
+      const res = await fetch(`/api/fetchData?_=${timestamp}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
