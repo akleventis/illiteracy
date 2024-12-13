@@ -36,18 +36,39 @@ export default function Home() {
         },
         body: JSON.stringify({ "prompt": p }),
       });
-      const data = await res.json();
+
+      let data;
+      try {
+        const data = await res.json();
+      } catch (jsonError) {
+        setIsLoading(false)
+        setResponse("Error: Invalid JSON response, it's probably google's fault -tooper. Try again in a few mins!");
+        return; 
+      }
+      if (!data.candidates || !data.candidates[0] || !data.candidates[0].finishReason) {
+        setIsLoading(false);
+        setResponse("Error: Missing finishReason in response data... this is definitely google's fault - tooper. Try again in a few mins!");
+        return;
+      }
+      
       const finishReason = data.candidates[0].finishReason
       if (finishReason !== "STOP") {
         setIsLoading(false)
-        setResponse("Error finish reason: " + data.candidates[0].finishReason)
+        setResponse("Error finish reason: " + data.candidates[0].finishReason + "...did u write something naughty? - tooper")
       }
+
+      if (!data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0] || !data.candidates[0].content.parts[0].text) {
+        setIsLoading(false);
+        setResponse("Error: Missing text content in response data, it's probably google's fault -tooper. Try again in a few mins!");
+        return;
+      }
+
       const textContent = data.candidates[0].content.parts[0].text;
       setIsLoading(false)
       setResponse(textContent)
     } catch (error) {
       setIsLoading(false)
-      setResponse("Error fetching data: " + error);
+      setResponse("Error fetching data: " + error + "it's probably google's fault -tooper. Try again in a few mins!");
     }
   };
 
@@ -76,7 +97,7 @@ export default function Home() {
       </h3>
       <span>
           {isLoading && (
-            <Image src="/loading.gif" alt="Loading..." width={20} height={20} />
+            <Image unoptimized src="/loading.gif" alt="Loading..." width={20} height={20} />
           )}
         </span>
       <div>
