@@ -1,4 +1,9 @@
-[[edge_functions]]
+[[functions]]
   path = "/api/*"
   function = "fetchData"
-  cache = "off"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-store, max-age=0"
+    Pragma = "no-cache"

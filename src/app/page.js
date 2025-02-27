@@ -32,6 +32,9 @@ export default function Home() {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
+          'Cache-Control': 'no-store, max-age=0',
+          'Pragma': 'no-cache',
+          'Expires': '0',
         },
         body: JSON.stringify({ "prompt": p }),
       });
