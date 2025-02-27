@@ -1,9 +1,9 @@
-[functions]
-  path = "/api/*"
-  function = "fetchData"
-
 [[headers]]
   for = "/api/*"
   [headers.values]
-    Cache-Control = "no-store, max-age=0"
-    Pragma = "no-cache"
+    cache-control = '''
+    max-age=0,
+    no-cache,
+    no-store,
+    must-revalidate'''
+    pragma = "no-cache"
