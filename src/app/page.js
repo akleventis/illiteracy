@@ -42,35 +42,24 @@ export default function Home() {
       let data;
       try {
         data = await res.json();
+        console.log(data);
       } catch (jsonError) {
         setIsLoading(false)
-        setResponse("Error: Invalid response, it's probably google's fault. Try again in a few mins! ~ Tooper");
-        return; 
-      }
-      if (!data.candidates || !data.candidates[0] || !data.candidates[0].finishReason) {
-        setIsLoading(false);
-        setResponse("Error: Missing finishReason in response data... this is definitely google's fault. Try again in a few mins! ~ Tooper");
+        setResponse("Error: " + jsonError.message);
         return;
       }
-      
-      const finishReason = data.candidates[0].finishReason
-      if (finishReason !== "STOP") {
-        setIsLoading(false)
-        setResponse("Error finish reason: " + data.candidates[0].finishReason + "...did u write something naughty? ~ Tooper")
-      }
-
-      if (!data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0] || !data.candidates[0].content.parts[0].text) {
+      if (!data.text) {
         setIsLoading(false);
-        setResponse("Error: Missing text content in response data, it's probably google's fault. Try again in a few mins! ~ Tooper");
+        setResponse("Error: " + (data.error ?? "No response text returned"));
         return;
       }
 
-      const textContent = data.candidates[0].content.parts[0].text;
+      const textContent = data.text;
       setIsLoading(false)
       setResponse(textContent)
     } catch (error) {
       setIsLoading(false)
-      setResponse("Error fetching data: " + error + " ...it's probably google's fault. Try again in a few mins! ~ Tooper");
+      setResponse("Error: " + error.message);
     }
   };
 
