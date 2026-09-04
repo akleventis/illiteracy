@@ -254,7 +254,7 @@ button:hover {
 pre {
   width: 100%;
   padding: 15px 19px;
-  font-size: 0.8em;
+  font-size: 1em;
   color: var(--foreground);
   background-color: var(--input-border);
   border-radius: 4px;
