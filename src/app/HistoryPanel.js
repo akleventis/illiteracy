@@ -25,20 +25,21 @@ export default function HistoryPanel({ items, onRemove, onClear }) {
         <div className="entry" key={item.id}>
           <div className="entry-head">
             <span className="meta">{item.mode} · {item.career} · {formatTime(item.ts)}</span>
-            <div className="entry-actions">
-              <button
-                aria-label={copiedId === item.id ? "Copied" : "Copy to clipboard"}
-                onClick={() => copy(item.output, item.id)}
-              >
-                {copiedId === item.id ? <CheckIcon /> : <ClipboardIcon />}
-              </button>
-              <button aria-label="Remove" onClick={() => onRemove(item.id)}>
-                ×
-              </button>
-            </div>
+            <button className="entry-remove" aria-label="Remove" onClick={() => onRemove(item.id)}>
+              ×
+            </button>
           </div>
           <div className="entry-in">{item.input}</div>
-          <div className="entry-out">{item.output}</div>
+          <div className="entry-out">
+            <button
+              className="copy"
+              aria-label={copiedId === item.id ? "Copied" : "Copy to clipboard"}
+              onClick={() => copy(item.output, item.id)}
+            >
+              {copiedId === item.id ? <CheckIcon /> : <ClipboardIcon />}
+            </button>
+            {item.output}
+          </div>
         </div>
       ))}
     </div>
