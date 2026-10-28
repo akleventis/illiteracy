@@ -39,5 +39,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# 1Password references only, safe to commit
+# 1Password references and the variable list, safe to commit
 !.env.tpl
+!.env.example
+
+# data never goes in git
+*.csv
+*.db
+*.sqlite

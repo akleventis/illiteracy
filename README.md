@@ -37,11 +37,13 @@ Every prompt wraps the user's text in `<input>` tags and instructs the model to 
 
 Corrections are saved to `localStorage` (key `litera-history`, capped at 50). It's per-browser/per-device only — the `/history` page says so. Each entry can be copied or removed individually, or the whole list cleared.
 
-## Development
+## Setup
 
-```
-npm install
-npm run dev
+```bash
+mise install                    # Node 24 (pinned in mise.toml)
+mise run setup                  # secret-scanning hook + npm ci
+op inject -i .env.tpl -o .env   # Gemini key from 1Password
+mise run dev
 ```
 
-Set `REACT_APP_GEM_KEY` (a Gemini API key) in `.env` locally and in the Netlify site's environment variables for production. Deployed on Netlify; `netlify.toml` forces `no-store` cache headers on `/api/*`.
+Set `GEMINI_API_KEY` (a Gemini API key): locally with `op inject -i .env.tpl -o .env` (1Password, **Dev** vault, item **`illiteracy`**), and in the Netlify site's environment variables for production. Deployed on Netlify; `netlify.toml` forces `no-store` cache headers on `/api/*`.
